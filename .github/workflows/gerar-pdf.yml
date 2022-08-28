@@ -1,0 +1,30 @@
+name: Compilação do PDF
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixando o código
+        uses: actions/checkout@v3
+
+      - name: Compilando latex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: monografia.tex
+          
+      - name: Obtendo nome da TAG
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Renomeando o PDF
+        run: mv monografia.pdf monografia-${{ steps.get_version.outputs.VERSION }}.pdf
+
+      - name: Publicando PDF
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: monografia-${{ steps.get_version.outputs.VERSION }}.pdf

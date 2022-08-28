@@ -1,0 +1,146 @@
+%-----------------------------------------------------------------%
+% 2015 - 2022 Emerson Ribeiro de Mello - mello@ifsc.edu.br
+% 
+% 2022/08/27 versão 1.00
+% 
+% Modelo de monografia para o Instituto Federal de Santa Catarina
+% 
+% Adaptação do documento abnTeX2: Modelo de Trabalho Acadêmico
+% para ficar de acordo com o "Template para elaboração de trabalho 
+% acadêmico" fornecido pela Biblioteca do IFSC 
+% https://www.ifsc.edu.br/documentos-uteis. Acesso em 2022-08-27
+% 
+%-----------------------------------------------------------------%
+\documentclass[
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	twoside,			% para impressão em recto e verso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	english,			% idioma adicional para hifenização
+	% french,				% idioma adicional para hifenização
+	% spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{ifscthesis}
+
+
+%-----------------------------------------------%
+% Capa
+%-----------------------------------------------%
+\input{pretextuais/capa}
+%-----------------------------------------------%
+
+%-----------------------------------------------%
+% Incluir arquivo com acrônimos e símbolos
+%-----------------------------------------------%
+% 
+% ATENÇÃO. Este projeto faz uso do pacote glossaries.
+% Se for usar uma instalação local do LaTeX para
+% compilar, e não no Overleaf, então é necessário 
+% que tenha o arquivo .latexmkrc dentro diretório 
+% deste projeto e use o comando abaixo:
+% 
+% latexmk -outdir=out -pdf monografia.tex
+% 
+% A extensão LaTeX Workshop do Visual Studio Code
+% usa por padrão o latexmk para compilar
+\input{capitulos/acronimos}
+\input{capitulos/simbolos}
+
+
+%-----------------------------------------------%
+% Início do documento
+%-----------------------------------------------%
+\begin{document}
+% Seleciona o idioma do documento (conforme pacotes do babel)
+\selectlanguage{brazil}
+
+
+
+
+%-----------------------------------------------%
+% ELEMENTOS PRÉ-TEXTUAIS
+%-----------------------------------------------%
+\pretextual
+\imprimircapa
+%-----------------------------------------------%
+
+%-----------------------------------------------%
+% No arquivo abaixo tem detalhes sobre folha de
+% aprovação, ficha catalográfica, agradecimentos,
+% resumo, abstract, etc.
+% 
+% Se não for a versão final do PDF, talvez fosse
+% interessante comentar a linha abaixo.
+%-----------------------------------------------%
+\input{pretextuais/pretextuais}
+%-----------------------------------------------%
+
+%-----------------------------------------------%
+% Listas ilustrações, tabelas, códigos, abreviaturas
+% símbolos.
+% Comente a linha abaixo para não gerar as listas
+%-----------------------------------------------%
+\input{pretextuais/listas-e-sumario}
+
+
+%-----------------------------------------------%
+% Elementos textuais - Capítulos
+%-----------------------------------------------%
+% Se quiser que apareça o título dos capítulos
+% no cabeçalho, então comente a linha abaixo
+\pagestyle{cabecalholimpo}
+
+\input{capitulos/capitulo1.tex}
+\input{capitulos/capitulo2.tex}
+\input{capitulos/capitulo3.tex}
+\input{capitulos/capitulo4.tex}
+
+
+
+%-----------------------------------------------%
+% ELEMENTOS PÓS-TEXTUAIS
+%-----------------------------------------------%
+\postextual
+% %-----------------------------------------------%
+%-----------------------------------------------%
+% Referências bibliográficas
+%-----------------------------------------------%
+\bibliography{referencias}
+
+
+%-----------------------------------------------%
+% Apêndices
+%-----------------------------------------------%
+\begin{apendicesenv}
+% Imprime uma página indicando o início dos apêndices
+\partapendices
+
+\chapter{Meu primeiro apêndice}
+
+Texto ou documento, elaborado pelo autor, a fim de complementar sua argumentação, sem prejuízo da unidade nuclear do trabalho. Os apêndices são identificados por letras maiúsculas ordenadas alfabeticamente, travessão e pelo respectivo título. 
+
+\end{apendicesenv}
+
+%-----------------------------------------------%
+% Anexos
+%-----------------------------------------------%
+\begin{anexosenv}
+% Imprime uma página indicando o início dos anexos
+\partanexos
+
+\chapter{Meu primeiro assunto de anexo}
+
+Texto ou documento não elaborado pelo autor, que serve de fundamentação, comprovação e ilustração. Os anexos são identificados por letras maiúsculas ordenadas alfabeticamente, travessões e pelos respectivos títulos. 
+
+
+\chapter{Segundo assunto que pesquisei}
+\lipsum[31]
+
+\end{anexosenv}
+
+
+    
+\end{document}
+

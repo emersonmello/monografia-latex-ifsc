@@ -1,0 +1,6 @@
+{
+    "nome" : "Juca Petro",
+    "cpf": "123.456.789-00",
+    "idade": 20,
+    "disciplinas" : [ "POO", "STD"]
+}

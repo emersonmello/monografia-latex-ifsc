@@ -1,0 +1,116 @@
+\chapter{Revisão bibliográfica}\label{cap:revisao}
+
+É uma análise comentada sobre o que já foi publicado sobre o assunto da pesquisa, buscando mostrar os pontos de vista convergentes e divergentes entre os autores. Traça-se um quadro teórico e elabora-se a estruturação conceitual que subsidiará o desenvolvimento da pesquisa. A revisão de literatura permitirá um mapeamento de quem já escreveu e o que já foi escrito sobre o assunto ou o problema de pesquisa.
+
+
+\section{Quadros}\label{sec:quadros}
+
+
+Um quadro é formado por linhas horizontais e verticais, sendo fechado em todas as suas extremidades e, geralmente, é utilizado para expressar dados qualitativos. Verifique um exemplo de utilização no \autoref{quadro:exemplo}.
+
+
+\begin{quadro}[htb]
+\caption{Exemplo de quadro}\label{quadro:exemplo}
+\begin{tabular}{|l|r|r|r|}
+    \hline
+    \textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
+    Marcos & 26    & 68   & 178    \\ \hline
+    Ivone  & 22    & 57   & 162    \\ \hline
+    ...    & ...   & ...  & ...    \\ \hline
+    Sueli  & 40    & 65   & 153    \\ \hline
+\end{tabular}
+\fonteproprioautor
+\end{quadro}
+
+No \autoref{quadro:docentes} são listados os docentes do curso.
+
+\begin{quadro}[htb]
+    \centering
+    \caption{Listagem dos docentes do curso}\label{quadro:docentes}
+    \footnotesize
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Docente} & \textbf{Formação acadêmica}    & \textbf{UCs}                               \\ \hline
+    Fulano de tal    & Engenharia de Telecomunicações & Antenas, Radiotransmissão, Circuitos de RF \\ \hline
+    Nononono         & Ciências da Computação         & Programação, Sistemas Distribuídos         \\ \hline
+    Sicrano          & Engenharia Elétrica            & Análise de Circuitos, Sinais e Sistemas    \\ \hline
+    \end{tabular}
+    \fonteproprioautor
+\end{quadro}
+
+
+\section{Tabelas}\label{sec:tabelas}
+
+De acordo com \citeonline{ibge1993}, tabelas são ilustrações com dados estatísticos numéricos. A moldura de uma tabela não deve ter traços verticais que a delimitem à esquerda e à direita. Quando houver necessidade de se destacar parte do cabeçalho ou parte dos dados numéricos estes devem ser estruturados com um ou mais traços verticais paralelos adicionais. Linhas horizontais só se admitem no cabeçalho e no rodapé. 
+
+Tabelas não devem figurar dados em branco. Assim, em um tabela:
+
+\begin{itemize}
+    \item Traço indica dado inexistente;
+    \item Reticências indicam dado desconhecido;
+    \item Zero deve ser usado quando o dado for menor que a metade da unidade adotada para a expressão do dado.
+\end{itemize}
+
+As tabelas devem ser citadas no texto, inseridas o mais próximo possível do trecho a que se referem e padronizadas segundo as Normas de Apresentação Tabular do IBGE. Os números sempre devem ser alinhados à direita, veja um exemplo na \autoref{tab:publicacoes}.
+
+\begin{table}[htb]
+    \ABNTEXfontereduzida
+    \centering
+    \caption{Produção dos docentes do curso}
+    \label{tab:publicacoes}
+    \begin{tabular}{p{3.3cm} r r R{2cm}}\toprule
+        Produto científico & \multicolumn{2}{c}{Período} &  \\ \cmidrule{2-3}
+                   & 2000-2010 & 2010-2020 & Total \\ \midrule
+        Artigo nacional & 10 & 20 & 30 \\ 
+        Artigo internacional & 5 & 5 & 10 \\
+        Orientações de TCC & 30 & 40 & 70 \\ \midrule 
+        Total & 45 & 65 & 110 \\
+
+        \bottomrule
+    \end{tabular}
+    \fonteproprioautor
+\end{table}
+
+
+
+\section{Figuras}\label{sec:figuras}
+
+As figuras são bastante úteis para ajudar expressar o funcionamento, modelo, etc. de alguma parte de seu trabalho. O \textit{Inkscape}\footnote{\url{https://inkscape.org/pt-br}.} é um \textit{software} livre para criação de desenhos vetoriais e que permite exportar os desenhos para os formatos PDF, PNG etc. O \textit{site} \url{https://diagrams.net} também uma boa opção para criar figuras.
+
+A inclusão de figuras no texto necessita que algumas regras sejam atendidas. São essas:
+
+\begin{itemize}
+	\item As figuras deverão ser de alta qualidade;
+	\begin{itemize}
+		\item Evite colocar fotos e outras figuras complexas;
+		\item Opte por figuras simples e que realmente expressem algo, mesmo quando impressas em preto e branco;
+	\end{itemize}
+	\item Em \LaTeX~as figuras deverão estar nos formatos: \texttt{PDF}, \texttt{JPG} ou \texttt{PNG};
+	\item Toda figura deverá possuir uma legenda;
+	\item Toda figura deverá ser referenciada em alguma parte do texto.
+\end{itemize}
+
+A \autoref{fig:escrita} foi inserida no texto para mostrar como fazer tal inserção em \LaTeX. Vale lembrar que toda figura inserida deverá ser, em algum momento, referenciada no texto. 
+
+\begin{figure}[ht]
+	\centering
+	\caption{Uma pessoa escrevendo sua monografia}\label{fig:escrita}
+	\includegraphics[width=5cm]{figuras/man}
+    \fonte{\citeonline{openclipart}}
+\end{figure}
+
+
+\subsection{Mascotes}\label{sec:mascotes}
+
+
+A \autoref{fig:mascotes} ilustra uma forma de incluir duas figuras, lado a lado, usando o pacote \texttt{subcaption}. A \autoref{fig:mascote1} ilustra o mascote do \LaTeX~estudando. Já na \autoref{fig:mascote2} o mascote aparece apresentando algum assunto. 
+
+\begin{figure}[ht]
+	\centering
+	\caption{O mascote do~\LaTeX~em diferentes poses}\label{fig:mascotes}
+	\subcaptionbox{O mascote estudando\label{fig:mascote1}}
+		{\includegraphics[width=.4\textwidth]{figuras/lion}}
+	\subcaptionbox{O mascote ensinando\label{fig:mascote2}}
+		{\includegraphics[width=.4\textwidth]{figuras/latex_lion}}
+    \fonte{\TeX~\textit{User Group}}
+\end{figure}

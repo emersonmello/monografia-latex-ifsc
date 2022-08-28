@@ -1,0 +1,110 @@
+\chapter{Proposta}\label{cap:proposta}
+
+
+\section{Incluindo trechos de códigos}\label{sec:codigos}
+
+Em alguns casos é desejado incluir trechos de códigos no documento. O \LaTeX oferece inúmeras maneiras para isto e o pacote \textbf{listings} é conhecido por apresentar um dos melhores resultados. A \autoref{l_olamundo} apresenta o código em \textit{shell script} para o complexo problema do ``Olá mundo!''. A \autoref{l_matlab} apresenta um trecho de código em MatLab e por fim, na \autoref{cod:pessoa} é ilustrado um aluno representado em um documento \gls{json}.
+
+\lstinputlisting[style=shell,caption={Olá mundo em shell script},label=l_olamundo]{codigos/ola.sh}
+
+\lstinputlisting[style=matlab,caption={Um pequeno código em MatLab},label=l_matlab]{codigos/matlab.m}
+
+\lstinputlisting[style=json,caption={Aluno representado em JSON},label=cod:pessoa]{codigos/pessoa.json}
+
+
+\section{Como apresentar equações}\label{sec:equacoes}
+
+O \LaTeX é um pacote feito para a preparação de textos impressos de alta qualidade, especialmente
+para textos matemáticos. Ele foi desenvolvido por Leslie Lamport a partir do programa~\TeX~criado por Donald Knuth.
+
+Fórmulas matemáticas são produzidas digitando no arquivo fonte texto descrevendo-as. Isto significa que o~\LaTeX~deve ser informado que o texto que vem a seguir é uma fórmula e também quando ela termina e o texto normal recomeça. As fórmulas podem ocorrer em uma linha de texto como $ ax^2 + bx + c = 0 $, ou destacada do texto principal como os exemplos apresentados na \autoref{e_c2_eq1} e \autoref{e_c2_eq2}.
+
+\begin{equation}
+ x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\label{e_c2_eq1}
+\end{equation}
+
+\begin{align}
+f(x) &= x^2 \nonumber\\
+g(x) &= \dfrac{1}{\sqrt{x}} \nonumber\\
+F(x) &= \int^a_b \frac{1}{3}x^3
+\label{e_c2_eq2}
+\end{align}
+
+\section{Usando siglas, abreviaturas e símbolos}
+
+Algumas vezes nos deparamos com textos cheios de siglas ou símbolos. Existem diversos pacotes e formas para gerar glossário, lista de acrônimos, lista de símbolos etc. com \LaTeX. Neste parágrafo é feito uso de comandos definidos no pacote \textit{glossaries-extra}\footnote{\url{https://www.ctan.org/pkg/glossaries-extra}}. A listagem de acrônimos fica dentro do arquivo \texttt{capitulos/acronimos.tex} e a listagem de símbolos fica dentro do arquivo \texttt{capitulos/simbolos.tex}.
+
+O símbolo \gls{emptyset} representa um conjunto vazio, já o símbolo \gls{pi} representa o número Pi. O protocolo \gls{TLS} deve ser empregado sempre que se deseja garantir a integridade e a confidencialidade das mensagens trocadas pela rede. O \gls{TLS} é hoje utilizado por diversas aplicações. Como faz tempo que eu não falo do \glsxtrfull{TLS} eu chamo o nome completo mais a sigla, ajudando o meu leitor a lembrar da sigla \glsxtrshort{TLS}. Existem as \glsxtrfullpl{AC} que são bem importante. Este documento segue as normas da \gls{ABNT} e para isso faz uso do pacote \gls{abnTeX}.
+
+Abaixo são apresentados os comandos providos pelo pacote \textit{glossaries-extra}:
+
+\begin{itemize}
+    \item \verb+\gls{rotulo}+ -- Na primeira vez que o acrônimo for chamado será impresso o valor por extenso e o acrônimo. Ex: \verb+\gls{IFSC}+ irá imprimir Instituto Federal de Santa Catarina (IFSC). Nas demais vezes irá imprimir somente o acrônimo;
+    \item \verb+\glspl{rotulo}+ -- Semelhante ao anterior, mas imprime a forma no plural;
+    \item \verb+\glsxtrshort{rotulo}+ -- Para imprimir somente o acrônimo;
+    \item \verb+\glsxtrlong{rotulo}+ -- Para imprimir somente o valor por extenso;
+    \item \verb+\glsxtrfull{rotulo}+ -- Para imprimir o valor por extenso e o acrônimo, mesmo que o acrônimo já tenha sido invocado previamente.
+\end{itemize}
+
+
+
+\section{Referências bibliográficas}\label{sec:referencias}
+
+A formatação das referências bibliográficas conforme as regras da ABNT são um dos principais objetivos do \abnTeX. Consulte os manuais \citeonline{abntex2cite} e \citeonline{abntex2cite-alf} para obter informações sobre como utilizar as referências bibliográficas.
+
+
+O uso de citações ao londo do texto é uma prática desejável. Por exemplo, em \cite{lamport94} é apresentado um documento sobre a preparação de textos usando \LaTeX. Já em \cite{goossens94} é apresentada uma lista de referências rápidas para realizar as mais simples tarefas em \LaTeX.
+
+É o caso em que você menciona \emph{explicitamente} o autor da referência na sentença, algo
+do tipo ``Fulano (1900)''. Neste caso o nome do autor é escrito
+normalmente. Para isso use o comando \verb+\citeonline+.
+
+A ironia será assim uma \ldots\ proposta  por \citeonline{lamport94}. Em \cite{exemplo} foi usado para ilustrar como uma \textit{URL} deve aparecer na seção das referências. Este documento segue as normas da \gls{ABNT} e para isso faz uso do pacote \gls{abnTeX}.
+
+
+% ---
+\section{Citações diretas}
+\label{sec-citacao}
+% ---
+
+\index{citações!diretas}Utilize o ambiente \texttt{citacao} para incluir
+citações diretas com mais de três linhas:
+
+\begin{citacao}
+As citações diretas, no texto, com mais de três linhas, devem ser
+destacadas com recuo de 4 cm da margem esquerda, com letra menor que a do texto
+utilizado e sem as aspas. No caso de documentos datilografados, deve-se
+observar apenas o recuo \cite[5.3]{NBR10520:2002}.
+\end{citacao}
+
+Use o ambiente assim:
+
+\begin{verbatim}
+\begin{citacao}
+As citações diretas, no texto, com mais de três linhas [\ldots] 
+deve-se observar apenas o recuo \cite[5.3]{NBR10520:2002}.
+\end{citacao}
+\end{verbatim}
+
+O ambiente \texttt{citacao} pode receber como parâmetro opcional um nome de
+idioma previamente carregado nas opções da classe. Nesse
+caso, o texto da citação é automaticamente escrito em itálico e a hifenização é
+ajustada para o idioma selecionado na opção do ambiente. Por exemplo:
+
+\begin{verbatim}
+\begin{citacao}[english]
+Text in English language in italic with correct hyphenation.
+\end{citacao}
+\end{verbatim}
+
+Tem como resultado:
+
+\begin{citacao}[english]
+Text in English language in italic with correct hyphenation.
+\end{citacao}
+
+\index{citações!simples}Citações simples, com até três linhas, devem ser
+incluídas com aspas. Observe que em \LaTeX as aspas iniciais são diferentes das
+finais: ``Amor é fogo que arde sem se ver''.
+
