@@ -8,6 +8,29 @@
 % This class is based on class "abntex2"
 \LoadClassWithOptions{abntex2}
 
+
+%-----------------------------------------------%
+% Corrigindo bug na classe abnTeX que gera warning 
+% Token not allowed
+% https://github.com/abntex/abntex2/blob/f0a4d3c8589f0f2e7c087880f0816debda036eb4/tex/latex/abntex2/abntex2.cls#L892
+% 
+% Quando a issue abaixo for corrigida, então este 
+% bloco poderá ser excluído
+% https://github.com/abntex/abntex2/issues/133#issuecomment-387957640
+%-----------------------------------------------%
+\renewcommand{\PRIVATEapendiceconfig}[2]{%
+ \setboolean{abntex@apendiceousecao}{true}%
+ \renewcommand{\appendixname}{#1}
+ \ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{
+   \renewcommand{\appendixtocname}{\texorpdfstring{\MakeTextUppercase{#2}}{#2}}
+  }{%
+  \renewcommand{\appendixtocname}{#2}} 
+ \renewcommand{\appendixpagename}{#2}
+ \switchchapname{#1}% Corrected from \switchapname -> \switchchapname
+ \renewcommand*{\cftappendixname}{#1 \space}
+}
+%-----------------------------------------------%
+
 %-----------------------------------------------%
 % Pacotes 
 %-----------------------------------------------%
