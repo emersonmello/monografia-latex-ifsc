@@ -41,7 +41,7 @@
 \RequirePackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \RequirePackage{color,xcolor}	  % Controle das cores
 \RequirePackage{graphicx}			  % Inclusão de gráficos
-\RequirePackage{microtype} 			% para melhorias de justificação
+\RequirePackage[nopatch=eqnum]{microtype} 			% para melhorias de justificação
 \RequirePackage{url}
 \RequirePackage{breakcites}     % para quebrar citações que estouram a margem
 \RequirePackage{amsmath,tikz,pgf}
