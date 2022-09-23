@@ -256,7 +256,7 @@
 }
 
 % pacote: caption. A legenda de subfigures deve ficar abaixo da figura e a legenda da figura deve ficar no topo
-\captionsetup[figure]{textfont=it,position=bottom}
+\captionsetup[figure]{position=bottom}
 
 
 % Novos tipos de colunas em tabelas que permita definir a largura
