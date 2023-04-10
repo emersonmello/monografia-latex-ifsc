@@ -1,9 +1,9 @@
 % ifscthesis.cls
 % ------------------------------------------------------------%
-% 2015 - 2022 Emerson Ribeiro de Mello - mello@ifsc.edu.br
+% 2015 - 2023 Emerson Ribeiro de Mello - mello@ifsc.edu.br
 % ------------------------------------------------------------%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ifscthesis}[2022/08/27 version 1.00 IFSC thesis] 
+\ProvidesClass{ifscthesis}[2023/04/10 version 1.01 IFSC thesis] 
 
 % This class is based on class "abntex2"
 \LoadClassWithOptions{abntex2}
@@ -41,12 +41,12 @@
 \RequirePackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \RequirePackage{color,xcolor}	  % Controle das cores
 \RequirePackage{graphicx}			  % Inclusão de gráficos
-\RequirePackage[nopatch=eqnum]{microtype} 			% para melhorias de justificação
+% \RequirePackage[nopatch=eqnum]{microtype} 			% para melhorias de justificação
 \RequirePackage{url}
 \RequirePackage{breakcites}     % para quebrar citações que estouram a margem
 \RequirePackage{amsmath,tikz,pgf}
 \RequirePackage{caption,subcaption}
-\RequirePackage{soulutf8}
+\RequirePackage{soul}
 \RequirePackage{csquotes}
 \RequirePackage[printonlyused,withpage]{acronym}
 \RequirePackage{lipsum}				% para geração de dummy text
@@ -60,6 +60,18 @@
 % Pacotes de citações
 \RequirePackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \RequirePackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+
+%-----------------------------------------------%
+% Para remover o sinal de maior e menor da URL nas referências enquanto não sai uma atualização do pacote ABNTeX
+% https://github.com/abntex/abntex2/issues/210
+%-----------------------------------------------%
+\@ifpackageloaded{url}{%
+  \renewcommand{\UrlLeft}{}
+  \renewcommand{\UrlRight}{}
+}
+%-----------------------------------------------%
+
 
 %-----------------------------------------------%
 %  Glossário
