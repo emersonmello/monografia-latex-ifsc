@@ -5,7 +5,7 @@
 
 Adaptação do documento [abnTeX2: Modelo de Trabalho Acadêmico](https://www.ctan.org/pkg/abntex2) para ficar de acordo com o "Template para elaboração de trabalho acadêmico" fornecido pela [Biblioteca do IFSC](https://www.ifsc.edu.br/documentos-uteis).
 
-[Aqui tem um exemplo do PDF gerado](https://github.com/emersonmello/monografia-latex-ifsc/releases) a partir deste modelo.
+[Aqui tem um exemplo do PDF gerado](https://github.com/emersonmello/monografia-latex-ifsc/releases/latest) a partir deste modelo.
 
 ## Compilando o projeto localmente e não no Overleaf
 
