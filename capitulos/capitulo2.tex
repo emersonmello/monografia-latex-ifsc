@@ -108,9 +108,15 @@ A \autoref{fig:mascotes} ilustra uma forma de incluir duas figuras, lado a lado,
 \begin{figure}[ht]
 	\centering
 	\caption{O mascote do~\LaTeX~em diferentes poses}\label{fig:mascotes}
-	\subcaptionbox{O mascote estudando\label{fig:mascote1}}
-		{\includegraphics[width=.4\textwidth]{figuras/lion}}
-	\subcaptionbox{O mascote ensinando\label{fig:mascote2}}
-		{\includegraphics[width=.4\textwidth]{figuras/latex_lion}}
-    \fonte{\TeX~\textit{User Group}}
+
+	\begin{subfigure}[t]{.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/lion.pdf}
+        \caption{O mascote estudando}\label{fig:mascote1}
+    \end{subfigure}
+    \begin{subfigure}[t]{.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/latex_lion.pdf}
+        \caption{O mascote ensinando}\label{fig:mascote2}
+    \end{subfigure}
 \end{figure}
