@@ -18,7 +18,9 @@ jobs:
           
       - name: Obtendo nome da TAG
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+        # run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
 
       - name: Renomeando o PDF
         run: mv monografia.pdf monografia-${{ steps.get_version.outputs.VERSION }}.pdf
