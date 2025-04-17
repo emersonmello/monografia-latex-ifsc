@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Baixando o código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Compilando latex
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: monografia.tex
           
@@ -24,7 +24,7 @@ jobs:
         run: mv monografia.pdf monografia-${{ steps.get_version.outputs.VERSION }}.pdf
 
       - name: Publicando PDF
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: monografia-${{ steps.get_version.outputs.VERSION }}.pdf

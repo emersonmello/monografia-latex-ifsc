@@ -1,0 +1,42 @@
+\makeglossaries
+% \setabbreviationstyle[acronym]{long-postshort-user}
+\setabbreviationstyle[acronym]{long-short-user}
+\glssetcategoryattribute{acronym}{nohyperfirst}{true}
+% \glssetcategoryattribute{acronym}{nohyper}{true}
+
+% ------------------------------------%
+%  Como usar os comandos do glossário
+% ------------------------------------%
+% \gls{TLS} - Na 1a. vez, texto por extenso + sigla. Nas chamadas subsequentes somente a sigla
+% \glspl{IdP} - Para colocar s como prefixo da sigla
+% \Gls{} - Inicial em maiúscula
+% \glsxtrfull{} - texto por extenso + sigla
+% \glsxtrfullpl{} - texto por extenso no plural + sigla
+% \glsxtrshort{} - somente a sigla
+% \glsxtrlong{} - somente o texto por extenso
+
+%  Caso queira criar uma entrada que tenha tradução para inglês, use o parâmetro user1. 
+%      Veja exemplo abaixo para Credenciais Verificáveis
+% 
+% Caso queira criar plural, use o parâmetro longplural. Veja exemplo para IAA
+% ------------------------------------%
+
+\newacronym
+{json} % rótulo 
+{JSON} % sigla
+{\textit{JavaScript Object Notation}} % por extenso
+
+
+\newacronym{ABNT}{ABNT}{Associação Brasileira de Normas Técnicas}
+
+\newacronym{abnTeX}{abnTeX}{ABsurdas Normas para TeX}
+
+\newacronym[longplural={Autoridades Certificadoras}]{AC}{AC}{Autoridade Certificadora}
+
+\newacronym{AES}{AES}{\textit{Advanced Encryption Standard}}
+
+\newacronym{TLS}{TLS}{\textit{Transport Layer Security}}
+
+\newacronym{TPC}{TPC}{Terceira Parte Confiável}
+
+\newacronym{IFSC}{IFSC}{Instituto Federal de Santa Catarina}

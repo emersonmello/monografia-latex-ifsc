@@ -2,7 +2,6 @@
 # push @file_not_found, '^Package .* No file `([^\\\']*)\\\'';
 # print("GLOBAL LATEXMK: Glossaries Module...\n");
 
-
 add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
 add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
 
@@ -25,4 +24,3 @@ sub run_makeglossaries {
 push @generated_exts, 'glo', 'gls', 'glg';
 push @generated_exts, 'acn', 'acr', 'alg';
 $clean_ext .= ' %R.ist %R.xdy';
-# $clean_ext .= ' nav snm vrb run.xml';

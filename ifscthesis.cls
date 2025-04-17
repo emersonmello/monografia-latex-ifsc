@@ -1,12 +1,263 @@
 % ifscthesis.cls
 % ------------------------------------------------------------%
-% 2015 - 2023 Emerson Ribeiro de Mello - mello@ifsc.edu.br
+% 2015 - 2025 Emerson Ribeiro de Mello - mello@ifsc.edu.br
 % ------------------------------------------------------------%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ifscthesis}[2023/04/10 version 1.01 IFSC thesis] 
+\ProvidesClass{ifscthesis}[2025/04/16 version 2.0 IFSC thesis] 
 
 % This class is based on class "abntex2"
 \LoadClassWithOptions{abntex2}
+
+
+% ------------------------------------------------------------
+% Pacotes básicos
+% ------------------------------------------------------------
+
+\RequirePackage[style=abnt,noslsn,justify]{biblatex}
+\RequirePackage{csquotes} 
+\RequirePackage{lmodern}		  	% Usa a fonte Latin Modern			
+\RequirePackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\RequirePackage{lastpage}			  % Usado pela Ficha catalográfica
+\RequirePackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\RequirePackage{color,xcolor}	  % Controle das cores
+\RequirePackage{graphicx}			  % Inclusão de gráficos
+
+\PassOptionsToPackage{hyphens}{url} % Permite quebra de URL
+\urlstyle{sf}
+\RequirePackage{breakcites}     % para quebrar citações que estouram a margem
+\RequirePackage{amsmath,tikz,pgf}
+\RequirePackage{caption,subcaption}
+\RequirePackage{array,booktabs,bookmark,multirow}
+\RequirePackage{ragged2e}
+\RequirePackage{upquote,listings}
+
+
+
+
+% ------------------------------------------------------------
+% Configurações de pacotes
+% ------------------------------------------------------------
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+
+% Configurações do pacote hyperref
+\makeatletter
+\hypersetup{
+pdftitle={\@title}, 
+pdfauthor={\@author},
+pdfsubject={\imprimirpreambulo},
+colorlinks=true,       		% false: boxed links; true: colored links
+linkcolor=black,          	% color of internal links
+citecolor=black,        		% color of links to bibliography
+filecolor=black,      		% color of file links
+urlcolor=black,
+bookmarksdepth=4
+}
+\makeatother
+
+% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
+% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
+\makeatletter
+\setlength{\@fptop}{5pt} % Set distance from top of page to first float
+\makeatother
+
+% pacote: caption. A legenda de subfigures deve ficar abaixo da figura e a legenda da figura deve ficar no topo
+% \captionsetup[figure]{position=bottom}
+
+
+% ------------------------------------------------------------
+
+
+% ------------------------------------------------------------
+% Comandos e ambientes personalizados
+% ------------------------------------------------------------
+
+% Para atender norma do IFSC
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+
+\renewcommand{\ABNTEXchapterfont}{\bfseries\sffamily}
+\renewcommand{\ABNTEXsectionfont}{\normalfont\sffamily}
+\renewcommand{\ABNTEXsubsectionfont}{\bfseries\sffamily}
+\renewcommand{\ABNTEXsubsubsectionfont}{\normalfont\sffamily}
+\renewcommand{\ABNTEXsubsubsubsectionfont}{\normalfont\sffamily}
+
+% Fontes das entradas do sumario
+%
+%
+\renewcommand{\cftchapterfont}{\bfseries\normalsize}
+\renewcommand{\cftchapterpagefont}{\normalsize\cftchapterfont}
+%
+\renewcommand{\cftsectionfont}{\normalfont}
+\renewcommand{\cftsectionpagefont}{\cftsectionfont}
+%
+\renewcommand{\cftsubsectionfont}{\normalsize}
+\renewcommand{\cftsubsectionpagefont}{\cftsubsectionfont}
+%
+\renewcommand{\cftsubsubsectionfont}{\normalfont}
+\renewcommand{\cftsubsubsectionpagefont}{\cftsubsubsectionfont}
+
+  
+
+
+
+
+\makepagestyle{cabecalholimpo}
+\makeevenhead{cabecalholimpo}{\thepage}{}{} % páginas pares
+\makeoddhead{cabecalholimpo}{}{}{\thepage} % páginas ímpares
+% \makeheadrule{cabecalholimpo}{\textwidth}{\normalrulethickness} % linha
+
+%-----------------------------------------------%
+% Possibilita criação de Quadros e Lista de quadros.
+% Ver https://github.com/abntex/abntex2/issues/176
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+\newfloat[chapter]{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+% configurações para atender às regras da ABNT
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space} 
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+% Ver https://github.com/abntex/abntex2/issues/176
+\setfloatlocations{quadro}{hbtp}
+%-----------------------------------------------% 
+
+
+%-----------------------------------------------%
+%  Comando para ser usado abaixo de figuras,
+%  tabelas e quadros para indicar que o elemento
+%  é de autoria do próprio autor do documento.
+\newcommand{\fonteproprioautor}{
+\vspace{-1ex}
+\small
+\center{Fonte: Elaborada pelo autor.}}
+%-----------------------------------------------%
+
+%-----------------------------------------------%
+% Novos tipos de colunas em tabelas que permitem
+% definir a largura da coluna e o alinhamento do texto.
+% O alinhamento é feito com o pacote ragged2e
+%-----------------------------------------------%
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+
+
+%-----------------------------------------------%
+% Personalização do modelo abnTeX2 para ficar de
+% acordo com o modelo do IFSC 2025-04-16
+%-----------------------------------------------%
+\makeatletter
+\renewcommand{\imprimircapa}{%
+\begin{capa}%
+    \center
+    \ABNTEXchapterfont\normalfont\large\imprimirinstituicao
+
+    \vspace*{2cm}
+
+    {\ABNTEXchapterfont\normalfont\large\MakeUppercase{\imprimirautor}}
+
+    \vspace*{2cm}
+    \begin{center}
+    \ABNTEXchapterfont\bfseries\large\MakeUppercase{\imprimirtitulo}
+    \end{center}
+    \vfill
+    
+    \large\MakeUppercase{\imprimirlocal}
+
+    \large\imprimirdata
+    
+    \vspace*{1cm}
+  \end{capa}
+}
+\makeatother
+
+%-----------------------------------------------%
+% folha de rosto 
+%-----------------------------------------------%
+\makeatletter
+
+\renewcommand{\folhaderostocontent}{
+
+\begin{center}
+    {\ABNTEXchapterfont\normalfont\large\imprimirautor}
+
+    \vspace*{2cm}
+
+    \ABNTEXchapterfont\normalfont\large\imprimirtitulo
+
+
+    \vspace*{3cm}
+
+\abntex@ifnotempty{\imprimirpreambulo}{%
+  \hspace{.45\textwidth}
+  \begin{minipage}{.5\textwidth}
+  \SingleSpacing
+  {\normalsize\imprimirpreambulo}
+
+\vspace*{.3cm}
+
+{\normalsize\imprimirorientadorRotulo~\imprimirorientador}\par
+
+\vspace*{.3cm}
+
+\abntex@ifnotempty{\imprimircoorientador}{%
+{\normalsize\imprimircoorientadorRotulo~\imprimircoorientador}%
+}%
+\end{minipage}%
+}%
+
+\vspace*{\fill}
+
+\imprimirlocal
+
+\par
+
+\imprimirdata
+\end{center}
+}
+\makeatother
+%-----------------------------------------------%
+
+
+%-----------------------------------------------%
+%  Glossário
+%-----------------------------------------------%
+\makeatletter
+% Para resolver um conflito entre abntex e glossaries-extra
+% https://groups.google.com/g/abntex2/c/Hb0TnI-kD8Q/m/8Syvf2_yGYcJ
+\let\su@ExpandTwoArgs\relax
+\let\IfSubStringInString\relax
+\let\su@IfSubStringInString\relax 
+\makeatother
+
+\RequirePackage[lang-warn=false]{datatool-base}
+\RequirePackage[automake,nomain,acronym,symbols,%
+ nostyles,% only need list style so don't load others
+ stylemods={list},% load glossary-list.sty
+ style=list,nogroupskip,postpunc=dot,toc=false]{glossaries-extra}
+ \setabbreviationstyle[acronym]{long-short}
+ \setabbreviationstyle{long-short}
+
+% Para deixar em maiúscula a primeira letra na lista de siglas e glossário
+\renewcommand{\glsnamefont}[1]{\makefirstuc{#1}}
+
+% https://tex.stackexchange.com/questions/31300/using-the-glossaries-package-for-english-acronyms-in-german-documents
+% \glscurrentfieldvalue only works with glossaries v4.23 (and above)
+\renewcommand{\glsxtrpostdescacronym}{%
+ \ifglshasfield{\glsxtruserfield}{\glscurrententrylabel}%
+ { (\glscurrentfieldvalue)}%
+ {}%
+}
+
+%-----------------------------------------------%
 
 
 %-----------------------------------------------%
@@ -31,279 +282,32 @@
 }
 %-----------------------------------------------%
 
-%-----------------------------------------------%
-% Pacotes 
-%-----------------------------------------------%
-\RequirePackage{lmodern}		  	% Usa a fonte Latin Modern			
-\RequirePackage[T1]{fontenc}		% Selecao de codigos de fonte.
-\RequirePackage[utf8]{inputenc}	% Codificacao do documento (conversão automática dos acentos)
-\RequirePackage{lastpage}			  % Usado pela Ficha catalográfica
-\RequirePackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
-\RequirePackage{color,xcolor}	  % Controle das cores
-\RequirePackage{graphicx}			  % Inclusão de gráficos
-% \RequirePackage[nopatch=eqnum]{microtype} 			% para melhorias de justificação
-\RequirePackage{url}
-\RequirePackage{breakcites}     % para quebrar citações que estouram a margem
-\RequirePackage{amsmath,tikz,pgf}
-\RequirePackage{caption,subcaption}
-\RequirePackage{soul}
-\RequirePackage{csquotes}
-\RequirePackage[printonlyused,withpage]{acronym}
-\RequirePackage{lipsum}				% para geração de dummy text
-\RequirePackage{array,booktabs,bookmark,multirow}
-\RequirePackage{ragged2e}
-% para resolver o problema dos apostrofos e crases no listings
-\RequirePackage{upquote,listings}
-% Para formatar unidades físicas para o padrão usado no Brasil
-\RequirePackage{siunitx}
-
-% Pacotes de citações
-\RequirePackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\RequirePackage[alf]{abntex2cite}	% Citações padrão ABNT
-
-
-%-----------------------------------------------%
-% Para remover o sinal de maior e menor da URL nas referências enquanto não sai uma atualização do pacote ABNTeX
-% https://github.com/abntex/abntex2/issues/210
-%-----------------------------------------------%
-\@ifpackageloaded{url}{%
-  \renewcommand{\UrlLeft}{}
-  \renewcommand{\UrlRight}{}
-}
-%-----------------------------------------------%
-
-
-%-----------------------------------------------%
-%  Glossário
-%-----------------------------------------------%
-
-% Para resolver um conflito entre abntex e glossaries-extra
-% https://groups.google.com/g/abntex2/c/Hb0TnI-kD8Q/m/8Syvf2_yGYcJ
-\let\su@ExpandTwoArgs\relax
-\let\IfSubStringInString\relax
-\let\su@IfSubStringInString\relax 
-
-\RequirePackage[nomain,acronym,symbols,automake,
- nostyles,% only need list style so don't load others
- stylemods={list},% load glossary-list.sty
- style=list,nogroupskip,postpunc=dot,toc=false]{glossaries-extra}
- \setabbreviationstyle[acronym]{long-short}
- \setabbreviationstyle{long-short}
-
-% Para deixar em maiúscula a primeira letra na lista de siglas e glossário
-\renewcommand{\glsnamefont}[1]{\makefirstuc{#1}}
-%-----------------------------------------------%
-
-%-----------------------------------------------%
-% Personalização do modello abnTeX2 para ficar de
-% acordo com o modelo do IFSC 2022-08-23
-% https://www.ifsc.edu.br/documentos-uteis
-% Template para elaboração de trabalho acadêmico
-%-----------------------------------------------%
-% alterando a capa
-\renewcommand{\imprimircapa}{%
-  \begin{capa}%
-    \center
-    \ABNTEXchapterfont\Large INSTITUTO FEDERAL DE SANTA CATARINA
-    
-    \vspace*{1cm}
-    
-    {\ABNTEXchapterfont\large\MakeUppercase{\imprimirautor}}
-
-    \vfill
-    \begin{center}
-    \ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo
-    \end{center}
-    \vfill
-    
-    \large\imprimirlocal
-
-    \large\imprimirdata
-    
-    \vspace*{1cm}
-  \end{capa}
-}
-%-----------------------------------------------%
-% folha de rosto 
-%-----------------------------------------------%
-\makeatletter
-
-\renewcommand{\folhaderostocontent}{
-\begin{center}
-\vspace*{3cm}
-\begin{center}
-\ABNTEXchapterfont\bfseries\Large\MakeUppercase{\imprimirtitulo}
-\end{center}
-
-\vspace*{\fill}
-
-\abntex@ifnotempty{\imprimirpreambulo}{%
-  \hspace{.45\textwidth}
-  \begin{minipage}{.5\textwidth}
-  \SingleSpacing
-  \imprimirpreambulo
-
-   \vspace*{.3cm}
-
-  \imprimirorientadorRotulo~\imprimirorientador\par
-  
-	\vspace*{.3cm}
-  
-  \abntex@ifnotempty{\imprimircoorientador}{%
-  \imprimircoorientadorRotulo~\imprimircoorientador%
-}%
-  
-  \end{minipage}%
-  \vspace*{\fill}
-}%
-
-\vspace*{2cm}
-
-\imprimirlocal
-
-\par
-
-\imprimirdata
-\vspace*{\fill}
-\end{center}
-}
-
-\makeatother
-
-%-----------------------------------------------%
-% comando para imprimir texto de aprovação
-%-----------------------------------------------%
-\providecommand{\imprimirtextoaprovacao}{}
-\newcommand{\textoaprovacao}[1]{\renewcommand{\imprimirtextoaprovacao}{\begin{center}#1\end{center}
-}} 
-%-----------------------------------------------%
-
-%-----------------------------------------------%
-% Configurações de aparência do PDF final
-%-----------------------------------------------%
-
-% alterando o aspecto da cor azul
-\definecolor{blue}{rgb}{0.1, 0.1, 0.44}
-
-% informações do PDF
-\makeatletter
-\hypersetup{
-     	%pagebackref=true,
-		pdftitle={\@title}, 
-		pdfauthor={\@author},
-    pdfsubject={\imprimirpreambulo},
-		colorlinks=true,       		% false: boxed links; true: colored links
-    linkcolor=blue,          	% color of internal links
-    citecolor=blue,        		% color of links to bibliography
-    filecolor=magenta,      		% color of file links
-		urlcolor=blue,
-		bookmarksdepth=4
-}
-\makeatother
-%-----------------------------------------------%
-
-%-----------------------------------------------%
-% Posiciona figuras e tabelas no topo da página quando adicionadas sozinhas
-% em um página em branco. Ver https://github.com/abntex/abntex2/issues/170
-\makeatletter
-\setlength{\@fptop}{5pt} % Set distance from top of page to first float
-\makeatother
-%-----------------------------------------------%
-
-
-%-----------------------------------------------%
-% Possibilita criação de Quadros e Lista de quadros.
-% Ver https://github.com/abntex/abntex2/issues/176
-%-----------------------------------------------%
-\newcommand{\quadroname}{Quadro}
-\newcommand{\listofquadrosname}{Lista de quadros}
-
-\newfloat[chapter]{quadro}{loq}{\quadroname}
-\newlistof{listofquadros}{loq}{\listofquadrosname}
-\newlistentry{quadro}{loq}{0}
-
-% configurações para atender às regras da ABNT
-\setfloatadjustment{quadro}{\centering}
-\counterwithout{quadro}{chapter}
-\renewcommand{\cftquadroname}{\quadroname\space} 
-\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
-
-% Ver https://github.com/abntex/abntex2/issues/176
-\setfloatlocations{quadro}{hbtp} 
-%-----------------------------------------------%
-
-%-----------------------------------------------%
-% Espaçamentos entre linhas e parágrafos 
-%-----------------------------------------------%
-% O tamanho do parágrafo é dado por:
-\setlength{\parindent}{1.3cm}
-% Controle do espaçamento entre um parágrafo e outro:
-\setlength{\parskip}{0.2cm}  % tente também \onelineskip
-%-----------------------------------------------%
-
-
-%-----------------------------------------------%
-%  Comando para ser usado abaixo de figuras,
-%  tabelas e quadros para indicar que o elemento
-%  é de autoria do próprio autor do documento.
-%-----------------------------------------------%
-\newcommand{\fonteproprioautor}{
-\vspace{-1ex}
-\small
-\center{Fonte: Elaborada pelo autor.}}
-%-----------------------------------------------%
-
-
-%-----------------------------------------------%
-% Configurações dos pacotes
-%-----------------------------------------------%
-
-% pacote: siunix
-\sisetup{
-  input-ignore={.},
-  input-decimal-markers={,},
-  output-decimal-marker = {,},
-  group-separator={.},
-  group-minimum-digits=4,
-}
-
-% pacote: caption. A legenda de subfigures deve ficar abaixo da figura e a legenda da figura deve ficar no topo
-\captionsetup[figure]{position=bottom}
-
-
-% Novos tipos de colunas em tabelas que permita definir a largura
-\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
-
 
 
 % -------------------------------------------------%
 % Configurações para o listing
 % -------------------------------------------------%
-
-
-% Altera o nome padrão do rótulo usado no comando \autoref{}
 \renewcommand{\lstlistingname}{Código}
-% Altera o rótulo a ser usando no elemento pré-textual "Lista de código"
 \renewcommand{\lstlistlistingname}{Lista de códigos}
 % Configura a ``Lista de Códigos'' conforme as regras da ABNT (para abnTeX2)
 \begingroup\makeatletter
 \let\newcounter\@gobble\let\setcounter\@gobbletwo
-  \globaldefs\@ne \let\c@loldepth\@ne
-  \newlistof{listings}{lol}{\lstlistlistingname}
-  \newlistentry{lstlisting}{lol}{0}
+\globaldefs\@ne \let\c@loldepth\@ne
+\newlistof{listings}{lol}{\lstlistlistingname}
+\newlistentry{lstlisting}{lol}{0}
 \endgroup
 
 \renewcommand{\cftlstlistingaftersnum}{\hfill--\hfill}
 
 \let\oldlstlistoflistings\lstlistoflistings
+
 \renewcommand{\lstlistoflistings}{%
-   \begingroup%
-   \let\oldnumberline\numberline%
-   \renewcommand{\numberline}{\lstlistingname\space\oldnumberline}%
-   \oldlstlistoflistings%
-   \endgroup}
+\begingroup%
+\let\oldnumberline\numberline%
+\renewcommand{\numberline}{\lstlistingname\space\oldnumberline}%
+\oldlstlistoflistings%
+\endgroup}
+%-----------------------------------------------%
 
 \definecolor{hellgelb}{rgb}{1,1,0.9}
 \definecolor{colKeys}{rgb}{0,0,0}
@@ -392,7 +396,6 @@
   morekeywords={xmlns,xsi,noNamespaceSchemaLocation,type,id,x,y,source,target,version,tool,transRef,roleRef,objective,eventually}
 }
 \lstdefinelanguage{json}{
-  basicstyle=\normalfont\ttfamily,
     commentstyle=\color{eclipseStrings}, % style of comment
     stringstyle=\color{eclipseKeywords}, % style of strings
     string=[s]{"}{"},
@@ -482,48 +485,3 @@
         {í}{{\'{i}}}1
         {Í}{{\~{Í}}}1
 }
-
-\lstdefinestyle{shell}{language=csh,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{shellp}{language=csh,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{php}{language=php,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{phpp}{language=php,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{ansic}{language=c,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{ansicp}{language=c,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{cpp}{language=C++,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{cppp}{language=C++,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{docker}{language=docker,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{docker-compose}{language=docker-compose,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{docker-compose2}{language=docker-compose2,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{json}{language=json,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{java}{language=java,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{javap}{language=java,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{matlab}{language=matlab,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{matlabp}{language=matlab,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{python}{language=python,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{pythonp}{language=python,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{xml}{language=XML,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{xmlp}{language=XML,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{sql}{language=sql,basicstyle=\ttfamily\footnotesize}
-\lstdefinestyle{sqlp}{language=sql,basicstyle=\ttfamily\scriptsize}
-\lstdefinestyle{groovy}{language=Groovy,basicstyle=\ttfamily\footnotesize}
-
-\newcommand{\groovy}{\lstset{style=Groovy}}
-\newcommand{\cpp}{\lstset{style=cpp}}
-\newcommand{\cppp}{\lstset{style=cppp}}
-\newcommand{\ansic}{\lstset{style=ansic}}
-\newcommand{\ansicp}{\lstset{style=ansicp}}
-\newcommand{\json}{\lstset{style=json}}
-\newcommand{\java}{\lstset{style=java}}
-\newcommand{\javap}{\lstset{style=javap}}
-\newcommand{\sql}{\lstset{style=sql}}
-\newcommand{\sqlp}{\lstset{style=sqlp}}
-\newcommand{\xml}{\lstset{style=xml}}
-\newcommand{\xmlp}{\lstset{style=xmlp}}
-\newcommand{\python}{\lstset{style=python}}
-\newcommand{\pythonp}{\lstset{style=pythonp}}
-\newcommand{\csh}{\lstset{style=shell}}
-\newcommand{\cshp}{\lstset{style=shellp}}
-\newcommand{\shell}{\lstset{style=shell}}
-\newcommand{\shellp}{\lstset{style=shellp}}
-
-\newcommand{\includecode}[4][c]{\lstinputlisting[captionpos=t,caption=#3, label=#2,escapechar={@*}, style=#1]{#4}}

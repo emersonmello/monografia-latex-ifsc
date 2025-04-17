@@ -1,57 +1,41 @@
 %-----------------------------------------------------------------%
-% 2015 - 2023 Emerson Ribeiro de Mello - mello@ifsc.edu.br
+% 2015 - 2025 Emerson Ribeiro de Mello - mello@ifsc.edu.br
 % 
-% 2023/04/10 versão 1.01
+% 2025/04/16 versão 2
 % 
 % Modelo de monografia para o Instituto Federal de Santa Catarina
 % 
 % Adaptação do documento abnTeX2: Modelo de Trabalho Acadêmico
-% para ficar de acordo com o "Template para elaboração de trabalho 
-% acadêmico" fornecido pela Biblioteca do IFSC 
-% https://www.ifsc.edu.br/documentos-uteis. Acesso em 2022-08-27
-% 
+% para ficar de acordo com o "Manual de normalização de trabalhos
+% acadêmicos do Sistema de Bibliotecas integradas do IFSC (SiBI/IFSC)  - rev 08abr25"
+% disponível em  https://www.ifsc.edu.br/documentos-uteis. Acessado em 2025-04-16
 %-----------------------------------------------------------------%
 \documentclass[
 	12pt,				% tamanho da fonte
 	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
-	twoside,			% para impressão em recto e verso. Oposto a oneside
+	oneside,			% para impressão em frente e verso, use "twoside"
 	a4paper,			% tamanho do papel. 
 	% -- opções da classe abntex2 --
 	chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
 	english,			% idioma adicional para hifenização
-	% french,				% idioma adicional para hifenização
-	% spanish,			% idioma adicional para hifenização
-	brazil				% o último idioma é o principal do documento
-	]{ifscthesis}
+	brazil,				% o último idioma é o principal do documento
+	sumario=abnt-6027-2012 % sumário segundo a NBR 6027:2012
+]{ifscthesis}
+
+% Para gerar texto de exemplo
+\usepackage{lipsum} 
+
+% Arquivo com as referências bibliográficas
+\addbibresource{referencias.bib}
 
 
-%-----------------------------------------------%
 % Capa
-%-----------------------------------------------%
 \input{pretextuais/capa}
-%-----------------------------------------------%
 
-%-----------------------------------------------%
-% Incluir arquivo com acrônimos e símbolos
-%-----------------------------------------------%
-% 
-% ATENÇÃO. Este projeto faz uso do pacote glossaries.
-% Se for usar uma instalação local do LaTeX para
-% compilar, e não no Overleaf, então é necessário 
-% que tenha o arquivo .latexmkrc dentro diretório 
-% deste projeto e use o comando abaixo:
-% 
-% latexmk -outdir=out -pdf monografia.tex
-% 
-% A extensão LaTeX Workshop do Visual Studio Code
-% usa por padrão o latexmk para compilar
-\input{capitulos/acronimos}
-\input{capitulos/simbolos}
+% Abreviaturas, siglas e símbolos
+\input{pretextuais/abreviacoes-siglas.tex}
+\input{pretextuais/simbolos.tex}
 
-
-%-----------------------------------------------%
-% Início do documento
-%-----------------------------------------------%
 \begin{document}
 % Seleciona o idioma do documento (conforme pacotes do babel)
 \selectlanguage{brazil}
@@ -62,85 +46,80 @@
 %-----------------------------------------------%
 % ELEMENTOS PRÉ-TEXTUAIS
 %-----------------------------------------------%
-\pretextual
 \imprimircapa
-%-----------------------------------------------%
+\imprimirfolhaderosto
 
-%-----------------------------------------------%
-% No arquivo abaixo tem detalhes sobre folha de
-% aprovação, ficha catalográfica, agradecimentos,
-% resumo, abstract, etc.
-% 
-% Se não for a versão final do PDF, talvez fosse
-% interessante comentar a linha abaixo.
-%-----------------------------------------------%
-\input{pretextuais/pretextuais}
-%-----------------------------------------------%
+\input{pretextuais/ficha-catalografica.tex}
+\input{pretextuais/folha-de-aprovacao.tex}
 
-%-----------------------------------------------%
-% Listas ilustrações, tabelas, códigos, abreviaturas
-% símbolos.
-% Comente a linha abaixo para não gerar as listas
-%-----------------------------------------------%
-\input{pretextuais/listas-e-sumario}
+\input{pretextuais/dedicatoria.tex}
+\input{pretextuais/agradecimentos.tex}
+\input{pretextuais/epigrafe.tex}
+\input{pretextuais/resumo-abstract.tex}
 
 
 %-----------------------------------------------%
-% Elementos textuais - Capítulos
+% LISTAS
 %-----------------------------------------------%
-% Se quiser que apareça o título dos capítulos
-% no cabeçalho, então comente a linha abaixo
+% Lista de ilustrações
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% Lista de quadros
+\pdfbookmark[0]{\listofquadrosname}{loq}
+\listofquadros*
+\cleardoublepage
+
+% Lista de tabelas
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+% Lista de códigos
+\pdfbookmark[0]{\lstlistlistingname}{lol}
+\begin{KeepFromToc}
+\lstlistoflistings
+\end{KeepFromToc}
+\cleardoublepage
+
+% Lista de abreviaturas
+\printglossary[type=\acronymtype,nonumberlist,title=Lista de abreviaturas e siglas]
+\cleardoublepage
+
+% Lista de símbolos
+\printglossary[type=symbols,nonumberlist,title=Lista de símbolos]
+\cleardoublepage
+
+% Sumário
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+%-----------------------------------------------%
+% ELEMENTOS TEXTUAIS
+%-----------------------------------------------%
 \pagestyle{cabecalholimpo}
-
-\input{capitulos/capitulo1.tex}
-\input{capitulos/capitulo2.tex}
-\input{capitulos/capitulo3.tex}
-\input{capitulos/capitulo4.tex}
+\aliaspagestyle{chapter}{cabecalholimpo}
 
 
+\input{capitulos/capitulo-01.tex}
+\input{capitulos/capitulo-02.tex}
+\input{capitulos/capitulo-03.tex}
+\input{capitulos/capitulo-04.tex}
 
-%-----------------------------------------------%
-% ELEMENTOS PÓS-TEXTUAIS
-%-----------------------------------------------%
-\postextual
-% %-----------------------------------------------%
-%-----------------------------------------------%
-% Referências bibliográficas
-%-----------------------------------------------%
-\bibliography{referencias}
 
+
+% Imprimir Referências
+\printbibliography[title={Referências}]%
 
 %-----------------------------------------------%
 % Apêndices
 %-----------------------------------------------%
-\begin{apendicesenv}
-% Imprime uma página indicando o início dos apêndices
-\partapendices
-
-\chapter{Meu primeiro apêndice}
-
-Texto ou documento, elaborado pelo autor, a fim de complementar sua argumentação, sem prejuízo da unidade nuclear do trabalho. Os apêndices são identificados por letras maiúsculas ordenadas alfabeticamente, travessão e pelo respectivo título. 
-
-\end{apendicesenv}
-
-%-----------------------------------------------%
+\input{anexos-apendices/apendices.tex}
 % Anexos
-%-----------------------------------------------%
-\begin{anexosenv}
-% Imprime uma página indicando o início dos anexos
-\partanexos
-
-\chapter{Meu primeiro assunto de anexo}
-
-Texto ou documento não elaborado pelo autor, que serve de fundamentação, comprovação e ilustração. Os anexos são identificados por letras maiúsculas ordenadas alfabeticamente, travessões e pelos respectivos títulos. 
+\input{anexos-apendices/anexos.tex}
 
 
-\chapter{Segundo assunto que pesquisei}
-\lipsum[31]
-
-\end{anexosenv}
-
-
-    
 \end{document}
-

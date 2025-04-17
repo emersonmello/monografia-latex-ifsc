@@ -3,13 +3,13 @@
 
 \section{Incluindo trechos de códigos}\label{sec:codigos}
 
-Em alguns casos é desejado incluir trechos de códigos no documento. O \LaTeX~oferece inúmeras maneiras para isto e o pacote \textbf{listings} é conhecido por apresentar um dos melhores resultados. A \autoref{cod:olamundo} apresenta o código em \textit{shell script} para o complexo problema do ``Olá mundo!''. A \autoref{cod:matlab} apresenta um trecho de código em MatLab e por fim, na \autoref{cod:pessoa} é ilustrado um aluno representado em um documento \gls{json}.
+Em alguns casos é desejado incluir trechos de códigos no documento. O \LaTeX~oferece inúmeras maneiras para isto e o pacote \textbf{listings} é conhecido por apresentar um dos melhores resultados. A \autoref{cod:olamundo} apresenta o código em \textit{shell script} para o complexo problema do ``Olá mundo!''. A \autoref{cod:matlab} apresenta um trecho de código em MatLab e por fim, na \autoref{cod:pessoa} é ilustrado um aluno representado em um documento JSON.
 
-\lstinputlisting[style=shell,caption={Olá mundo em shell script},label=cod:olamundo]{codigos/ola.sh}
+\lstinputlisting[language=csh,caption={Olá mundo em shell script},label=cod:olamundo]{codigos/ola.sh}
 
-\lstinputlisting[style=matlab,caption={Um pequeno código em MatLab},label=cod:matlab]{codigos/matlab.m}
+\lstinputlisting[language=matlab,caption={Um pequeno código em MatLab},label=cod:matlab]{codigos/matlab.m}
 
-\lstinputlisting[style=json,caption={Aluno representado em JSON},label=cod:pessoa]{codigos/pessoa.json}
+\lstinputlisting[language=json,caption={Aluno representado em JSON},label=cod:pessoa]{codigos/pessoa.json}
 
 
 \section{Como apresentar equações}\label{sec:equacoes}
@@ -31,6 +31,7 @@ F(x) &= \int^a_b \frac{1}{3}x^3
 \label{e_c2_eq2}
 \end{align}
 
+
 \section{Usando siglas, abreviaturas e símbolos}
 
 Algumas vezes nos deparamos com textos cheios de siglas ou símbolos. Existem diversos pacotes e formas para gerar glossário, lista de acrônimos, lista de símbolos etc. com \LaTeX. Neste parágrafo é feito uso de comandos definidos no pacote \textit{glossaries-extra}\footnote{\url{https://www.ctan.org/pkg/glossaries-extra}}. A listagem de acrônimos fica dentro do arquivo \texttt{capitulos/acronimos.tex} e a listagem de símbolos fica dentro do arquivo \texttt{capitulos/simbolos.tex}.
@@ -51,16 +52,16 @@ Abaixo são apresentados os comandos providos pelo pacote \textit{glossaries-ext
 
 \section{Referências bibliográficas}\label{sec:referencias}
 
-A formatação das referências bibliográficas conforme as regras da ABNT são um dos principais objetivos do \abnTeX. Consulte os manuais \citeonline{abntex2cite} e \citeonline{abntex2cite-alf} para obter informações sobre como utilizar as referências bibliográficas.
+A formatação das referências bibliográficas conforme as regras da ABNT são um dos principais objetivos do \abnTeX. Consulte os manuais \textcite{abntex2cite} e \textcite{abntex2cite-alf} para obter informações sobre como utilizar as referências bibliográficas.
 
 
 O uso de citações ao londo do texto é uma prática desejável. Por exemplo, em \cite{lamport94} é apresentado um documento sobre a preparação de textos usando \LaTeX. Já em \cite{goossens94} é apresentada uma lista de referências rápidas para realizar as mais simples tarefas em \LaTeX.
 
 É o caso em que você menciona \emph{explicitamente} o autor da referência na sentença, algo
 do tipo ``Fulano (1900)''. Neste caso o nome do autor é escrito
-normalmente. Para isso use o comando \verb+\citeonline+.
+normalmente. Para isso use o comando \verb+\textcite+.
 
-A ironia será assim uma \ldots\ proposta  por \citeonline{lamport94}. Em \cite{exemplo} foi usado para ilustrar como uma \textit{URL} deve aparecer na seção das referências. Este documento segue as normas da \gls{ABNT} e para isso faz uso do pacote \gls{abnTeX}.
+A ironia será assim uma \ldots\ proposta  por \textcite{lamport94}. Em \cite{exemplo} foi usado para ilustrar como uma \textit{URL} deve aparecer na seção das referências. Este documento segue as normas da ABNT e para isso faz uso do pacote abnTeX.
 
 
 % ---
