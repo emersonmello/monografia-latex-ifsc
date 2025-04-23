@@ -238,7 +238,7 @@ bookmarksdepth=4
 \let\su@IfSubStringInString\relax 
 \makeatother
 
-\RequirePackage[lang-warn=false]{datatool-base}
+% \RequirePackage[lang-warn=false]{datatool-base}
 \RequirePackage[automake,nomain,acronym,symbols,%
  nostyles,% only need list style so don't load others
  stylemods={list},% load glossary-list.sty
