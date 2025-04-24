@@ -1,9 +1,23 @@
 % ifscthesis.cls
 % ------------------------------------------------------------%
+% Personalizações do abnTeX2 (https://github.com/abntex/abntex2) 
+% para o Instituto Federal de Santa Catarina (IFSC)
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% ------------------------------------------------------------%
 % 2015 - 2025 Emerson Ribeiro de Mello - mello@ifsc.edu.br
 % ------------------------------------------------------------%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ifscthesis}[2025/04/16 version 2.0 IFSC thesis] 
+\ProvidesClass{ifscthesis}[2025/04/24 v2.1 IFSC thesis] 
 
 % This class is based on class "abntex2"
 \LoadClassWithOptions{abntex2}
@@ -75,34 +89,29 @@ bookmarksdepth=4
 % Comandos e ambientes personalizados
 % ------------------------------------------------------------
 
-% Para atender norma do IFSC
-\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
-\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
-\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
-\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
-
+% Para atender norma do IFSC para títulos das seções no sumário e nas páginas
+% Seção primária: CAIXA ALTA E NEGRITO;
 \renewcommand{\ABNTEXchapterfont}{\bfseries\sffamily}
+\renewcommand{\ABNTEXchapterfontsize}{\normalsize}
+
+% Seção secundária: CAIXA ALTA;
 \renewcommand{\ABNTEXsectionfont}{\normalfont\sffamily}
+\renewcommand{\ABNTEXsectionfontsize}{\normalsize}
+\renewcommand{\cftsectionfont}{\normalfont\sffamily\MakeUppercase}
+
+% Seção terciária: Negrito;
 \renewcommand{\ABNTEXsubsectionfont}{\bfseries\sffamily}
-\renewcommand{\ABNTEXsubsubsectionfont}{\normalfont\sffamily}
+\renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+
+% Seção quaternária: Itálico;
+\renewcommand{\ABNTEXsubsubsectionfont}{\itshape\sffamily}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\normalsize}
+\renewcommand{\cftsubsubsectionfont}{\normalsize\normalfont\itshape\sffamily}
+
+% Seção quinária: Normal.
 \renewcommand{\ABNTEXsubsubsubsectionfont}{\normalfont\sffamily}
-
-% Fontes das entradas do sumario
-%
-%
-\renewcommand{\cftchapterfont}{\bfseries\normalsize}
-\renewcommand{\cftchapterpagefont}{\normalsize\cftchapterfont}
-%
-\renewcommand{\cftsectionfont}{\normalfont}
-\renewcommand{\cftsectionpagefont}{\cftsectionfont}
-%
-\renewcommand{\cftsubsectionfont}{\normalsize}
-\renewcommand{\cftsubsectionpagefont}{\cftsubsectionfont}
-%
-\renewcommand{\cftsubsubsectionfont}{\normalfont}
-\renewcommand{\cftsubsubsectionpagefont}{\cftsubsubsectionfont}
-
-  
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\normalsize}
+\renewcommand{\cftparagraphfont}{\normalsize\normalfont\sffamily}  
 
 
 
@@ -238,7 +247,10 @@ bookmarksdepth=4
 \let\su@IfSubStringInString\relax 
 \makeatother
 
+% Para versões de 2025 será necessário descomentar a linha abaixo
+% para evitar a mensagem de aviso do pacote datatool-base
 % \RequirePackage[lang-warn=false]{datatool-base}
+
 \RequirePackage[automake,nomain,acronym,symbols,%
  nostyles,% only need list style so don't load others
  stylemods={list},% load glossary-list.sty
