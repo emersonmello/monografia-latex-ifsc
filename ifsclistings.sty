@@ -1,0 +1,347 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ifsclistings}[2026/04/17 v1.1 IFSC Listings Style]
+
+% para resolver o problema dos apostrofos e crases no listings
+\RequirePackage{upquote,listings}
+\RequirePackage{xcolor}
+
+% -------------------------------------------------%
+% Estilo com configuracoes para o listing
+% -------------------------------------------------%
+
+
+% -----------------------%
+% CORES
+% -----------------------%
+\definecolor{ifsclistings@bg}{RGB}{250,250,250}   % rgb(250,250,250)
+\definecolor{ifsclistings@text}{RGB}{40,44,52}    % rgb(40,44,52)
+\definecolor{ifsclistings@keyword}{RGB}{0,92,197} % rgb(0,92,197)
+\definecolor{ifsclistings@string}{RGB}{196,26,22} % rgb(196,26,22)
+\definecolor{ifsclistings@comment}{RGB}{0,128,0}  % rgb(0,128,0)
+\definecolor{ifsclistings@number}{RGB}{128,0,128} % rgb(128,0,128)
+\definecolor{ifsclistings@func}{RGB}{111,66,193}  % rgb(111,66,193)
+\definecolor{ifsclistings@type}{RGB}{43,145,175}  % rgb(43,145,175)
+\definecolor{ifsclistings@gray}{RGB}{120,120,120} % rgb(120,120,120)
+\definecolor{ifsclistings@frame}{RGB}{220,220,220}% rgb(220,220,220)
+
+% -----------------------%
+% ESTILO BASE
+% -----------------------%
+\lstdefinestyle{ifsclistings@base}{
+    backgroundcolor=\color{ifsclistings@bg},
+    basicstyle=\ttfamily\footnotesize\color{ifsclistings@text},
+    keywordstyle=\color{ifsclistings@keyword}\bfseries,
+    stringstyle=\color{ifsclistings@string},
+    commentstyle=\color{ifsclistings@comment},
+    escapechar={@*}, % @* \textbf{negrito} *@
+    numbers=none,
+    numberstyle=\scriptsize\color{ifsclistings@gray},
+    numbersep=10pt,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{ifsclistings@frame},
+    breaklines=true,
+    breakatwhitespace=false,
+    tabsize=2,
+    keepspaces=true,
+    showstringspaces=false,
+    columns=fullflexible,
+    inputencoding=utf8,
+    literate=
+    {-}{{{\char`\-}}}1
+    {^}{{{\char`\^}}}1
+    {~}{{{\char`\~}}}1
+    {_}{{{\char`\_}}}1
+    {é}{{\'{e}}}1 {è}{{\`{e}}}1 {ê}{{\^{e}}}1 {ë}{{\¨{e}}}1
+    {É}{{\'{E}}}1 {Ê}{{\^{E}}}1 {û}{{\^{u}}}1 {ù}{{\`{u}}}1
+    {â}{{\^{a}}}1 {à}{{\`{a}}}1 {á}{{\'{a}}}1 {ã}{{\~{a}}}1
+    {Á}{{\'{A}}}1 {Â}{{\^{A}}}1 {Ã}{{\~{A}}}1 {ç}{{\c{c}}}1
+    {Ç}{{\c{C}}}1 {õ}{{\~{o}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1
+    {Ú}{{\'{U}}}1 {ô}{{\^{o}}}1 {Õ}{{\~{O}}}1 {Ó}{{\'{O}}}1
+    {Ô}{{\^{O}}}1 {î}{{\^{i}}}1 {Î}{{\^{I}}}1 {í}{{\'{i}}}1
+    {Í}{{\~{Í}}}1
+}
+
+% Definir o estilo base para todos os listings
+\lstset{style=ifsclistings@base}
+
+% -----------------------%
+% BASH
+% -----------------------%
+\lstdefinestyle{bash}{
+  language=bash,
+  style=ifsclistings@base
+}
+\lstdefinestyle{shell}{
+  language=bash,
+  style=ifsclistings@base
+}
+
+% -----------------------%
+% PYTHON
+% -----------------------%
+\lstdefinestyle{python}{
+    style=ifsclistings@base,
+    language=Python,
+    morekeywords={self,async,await},
+    emph={print,len,range,str,int,float,list,dict,set,bool,tuple,super,type,enumerate,zip,map,filter,any,all,as,assert,nonlocal,with,yield,True,False,None,lambda,raise,await,async},
+    emphstyle=\color{ifsclistings@func},
+    morekeywords=[2]{int,float,str,bool,list,dict},
+    keywordstyle=[2]\color{ifsclistings@type}
+}
+
+% -----------------------%
+% JAVA
+% -----------------------%
+\lstdefinestyle{java}{
+    style=ifsclistings@base,
+    language=Java,
+    morekeywords={var,record,sealed},
+    emph={System,out,println},
+    emphstyle=\color{ifsclistings@func},
+    morekeywords=[2]{String,Integer,Double,Boolean,ArrayList},
+    keywordstyle=[2]\color{ifsclistings@type}
+}
+
+% -----------------------%
+% JAVASCRIPT
+% -----------------------%
+\lstdefinestyle{javascript}{
+    style=ifsclistings@base,
+    language=JavaScript,
+    morekeywords={let,const,async,await,yield},
+    emph={console,log,document,window},
+    emphstyle=\color{ifsclistings@func}
+}
+
+% -----------------------%
+% C
+% -----------------------%
+\lstdefinestyle{c}{
+    style=ifsclistings@base,
+    language=C,
+    emph={printf,scanf},
+    emphstyle=\color{ifsclistings@func},
+    morekeywords=[2]{uint8_t,uint16_t,uint32_t},
+    keywordstyle=[2]\color{ifsclistings@type}
+}
+
+% -----------------------%
+% KOTLIN
+% -----------------------%
+\lstdefinelanguage{kotlin}{
+    keywords={fun,val,var,class,object,if,else,when,return,true,false,null},
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinestyle{kotlin}{
+    style=ifsclistings@base,
+    language=kotlin,
+    emph={println},
+    emphstyle=\color{ifsclistings@func}
+}
+
+% -----------------------%
+% JSON
+% -----------------------%
+\lstdefinelanguage{json}{
+    commentstyle=\color{ifsclistings@comment}, % style of comment
+    stringstyle=\color{ifsclistings@string}, % style of strings
+    string=[s]{"}{"},
+    comment=[l]{:\ "},
+    morecomment=[l]{:"},
+    morestring=[b]",
+    sensitive=false,
+    morekeywords={true,false,null},
+    literate=
+      {,}{{{\color{ifsclistings@gray}{,}}}}{1}
+      {\}}{{{\color{ifsclistings@gray}{\}}}}}{1}
+      {[}{{{\color{ifsclistings@gray}{[}}}}{1}
+      {]}{{{\color{ifsclistings@gray}{]}}}}{1}
+}
+
+\lstdefinestyle{json}{
+    style=ifsclistings@base,
+    language=json,
+    emph={true,false,null},
+    emphstyle=\color{ifsclistings@keyword}\bfseries
+}
+
+% -----------------------%
+% YAML
+% -----------------------%
+\lstdefinelanguage{yaml}{
+    keywords={true,false,null},
+    sensitive=false,
+    morecomment=[l]{\#},
+    morestring=[b]"
+}
+
+\lstdefinestyle{yaml}{
+    style=ifsclistings@base,
+    language=yaml
+}
+
+% -----------------------%
+% DOCKER Compose
+% -----------------------%
+\lstdefinestyle{docker-compose}{
+  style=yaml,
+  emph={
+    version, services, build, image, container_name,
+    ports, volumes, environment, depends_on,
+    networks, command, entrypoint, restart,
+    stdin_open, tty, working_dir
+  },
+  emphstyle=\color{ifsclistings@type}\bfseries,
+  literate=
+    {true}{{{\color{ifsclistings@type}true}}}4
+    {false}{{{\color{ifsclistings@type}false}}}5
+    {:}{{{\color{ifsclistings@type}:}}}1
+}
+
+% -----------------------%
+% DOCKER
+% -----------------------%
+\lstdefinelanguage{docker}{
+    keywords={FROM,RUN,CMD,COPY,ADD,ENTRYPOINT,ENV,EXPOSE,WORKDIR},
+    sensitive=false,
+    morecomment=[l]{\#},
+    morestring=[b]"
+}
+
+\lstdefinestyle{docker}{
+    style=ifsclistings@base,
+    language=docker
+}
+
+% -----------------------%
+% HTML / XML / XSD
+% -----------------------%
+\lstdefinestyle{html}{
+    style=ifsclistings@base,
+    language=HTML,
+    morekeywords={section,article,header,footer,nav,main}
+}
+
+\lstdefinestyle{xml}{
+    style=ifsclistings@base,
+    language=XML
+}
+
+\lstdefinestyle{xsd}{
+    style=ifsclistings@base,
+    language=XML,
+    morekeywords={xs:schema,xs:element,xs:complexType}
+}
+
+% -----------------------%
+% PROTOCOL BUFFERS
+% -----------------------%
+\lstdefinelanguage{protobuf}{
+    keywords={
+        syntax,import,package,option,
+        message,enum,service,rpc,returns,
+        repeated,optional,required,
+        reserved,oneof,map,
+        true,false
+    },    
+    morekeywords=[2]{
+        int32,int64,uint32,uint64,
+        sint32,sint64,fixed32,fixed64,
+        float,double,bool,string,bytes
+    },
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]"
+}
+
+\lstdefinestyle{protobuf}{
+    style=ifsclistings@base,
+    language=protobuf,
+   keywordstyle=[2]\color{ifsclistings@type},
+    emph={rpc,returns},
+    emphstyle=\color{ifsclistings@func}
+}
+
+% -----------------------%
+% GROOVY
+% -----------------------%
+\lstdefinelanguage{groovy}{
+    keywords={
+        as,assert,break,case,catch,class,const,continue,def,default,
+        do,else,enum,extends,false,finally,for,goto,if,implements,
+        import,in,instanceof,interface,new,null,package,return,
+        super,switch,this,throw,throws,true,try,while,
+        trait,def,var
+    },
+    morekeywords=[2]{
+        String,Integer,Double,Boolean,List,Map,BigDecimal
+    },
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstdefinestyle{groovy}{
+    style=ifsclistings@base,
+    language=groovy,
+    keywordstyle=[2]\color{ifsclistings@type},
+   emph={println,print,each,collect,findAll},
+    emphstyle=\color{ifsclistings@func}
+}
+
+% -----------------------%
+% SQL
+% -----------------------%
+
+\lstdefinelanguage{SQL}{
+  morekeywords={
+    SELECT, FROM, WHERE, INSERT, INTO, VALUES, UPDATE, DELETE,
+    CREATE, ALTER, DROP, TABLE, DATABASE, INDEX, VIEW,
+    JOIN, INNER, LEFT, RIGHT, FULL, ON,
+    GROUP, BY, ORDER, HAVING, DISTINCT,
+    UNION, ALL, AS, NULL, IS, NOT, AND, OR, IN, EXISTS,
+    BETWEEN, LIKE, LIMIT, OFFSET,
+    PRIMARY, KEY, FOREIGN, REFERENCES,
+    CHECK, DEFAULT, UNIQUE,
+    CASE, WHEN, THEN, ELSE, END
+  },
+  morekeywords=[2]{COUNT, SUM, AVG, MIN, MAX},
+  sensitive=false,
+  morecomment=[l]{--},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  moredelim=[is][\underbar]{@@}{@@}
+}
+
+\lstdefinestyle{sql}{
+  language=SQL,
+  style=ifsclistings@base
+}
+
+% -----------------------%
+% PROPERTIES FILE key=value
+% -----------------------%
+
+\lstdefinelanguage{Properties}{
+    morecomment=[l]{\#},
+    morecomment=[l]{!},
+    alsoletter={=,:},
+    morekeywords={=,:},
+    commentstyle=\color{ifsclistings@comment},
+    % Use "moredelim" to handle key-value separation visually
+    moredelim=[s][\color{ifsclistings@string}]{=}{\^^M},
+    moredelim=[s][\color{ifsclistings@string}]{:}{\^^M},
+}
+
+\lstdefinestyle{properties}{
+    language=Properties,
+    style=ifsclistings@base
+}

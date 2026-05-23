@@ -17,11 +17,61 @@
 % 2015 - 2025 Emerson Ribeiro de Mello - mello@ifsc.edu.br
 % ------------------------------------------------------------%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ifscthesis}[2025/04/24 v2.1 IFSC thesis] 
+\ProvidesClass{ifscthesis}[2026/05/23 v2.2 IFSC thesis] 
 
 % This class is based on class "abntex2"
 \LoadClassWithOptions{abntex2}
 
+
+% -------------------------------------------------%
+% Configurações para compatibilidade com diferentes engines de compilação
+% -------------------------------------------------%
+\RequirePackage{iftex}
+\ifPDFTeX
+  % -------- pdfLaTeX --------
+  \RequirePackage[utf8]{inputenc}
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage{mathpazo}
+  \RequirePackage{lmodern}
+  \usepackage[scale=0.88]{tgheros} % Loads TeX Gyre Heros
+  \renewcommand*\familydefault{\sfdefault} % Sets default to Sans Serif
+  \RequirePackage{fix-cm}
+  \else
+  % -------- XeLaTeX ou LuaLaTeX --------
+  \RequirePackage{fontspec}
+  \RequirePackage{unicode-math}
+  \RequirePackage{newunicodechar}
+  \newunicodechar{º}{\textordmasculine}
+  \newunicodechar{ª}{\textordfeminine}
+
+  % -------------------------------------------------%
+  % Escolha de fontes
+  % -------------------------------------------------%
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase,Renderer=HarfBuzz}
+
+  \IfFontExistsTF{Inconsolata}{
+    \setmonofont[
+      Scale          = 0.88 %MatchLowercase,
+    ]{Inconsolata}
+  }{}
+
+  \IfFontExistsTF{Inter}{
+    \setmainfont[
+      Scale          = .88,
+      SmallCapsFont = *,
+    ]{Inter}
+  }{
+    \setmainfont[Scale=.9]{TeX Gyre Heros}  
+    % \setmainfont[Scale=.88]{TeX Gyre Pagella}  
+  }
+  
+  % \IfFontExistsTF{Fira Math}{
+  %     \setmathfont{Fira Math}[Scale=MatchLowercase]
+  % }{
+    \setmathfont{TeX Gyre Pagella Math}
+  % }
+\fi
+% -------------------------------------------------%
 
 % ------------------------------------------------------------
 % Pacotes básicos
@@ -29,8 +79,6 @@
 
 \RequirePackage[style=abnt,noslsn,justify]{biblatex}
 \RequirePackage{csquotes} 
-\RequirePackage{lmodern}		  	% Usa a fonte Latin Modern			
-\RequirePackage[T1]{fontenc}		% Selecao de codigos de fonte.
 \RequirePackage{lastpage}			  % Usado pela Ficha catalográfica
 \RequirePackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \RequirePackage{color,xcolor}	  % Controle das cores
@@ -309,6 +357,7 @@ bookmarksdepth=4
 \newlistentry{lstlisting}{lol}{0}
 \endgroup
 
+
 \renewcommand{\cftlstlistingaftersnum}{\hfill--\hfill}
 
 \let\oldlstlistoflistings\lstlistoflistings
@@ -319,181 +368,9 @@ bookmarksdepth=4
 \renewcommand{\numberline}{\lstlistingname\space\oldnumberline}%
 \oldlstlistoflistings%
 \endgroup}
+
+% Pacote com personalizações para o listings
+% Esse arquivo deve estar no mesmo diretório do ifscutils.sty ou 
+% em um diretório que esteja no caminho de busca do LaTeX
+\RequirePackage{ifsclistings}
 %-----------------------------------------------%
-
-\definecolor{hellgelb}{rgb}{1,1,0.9}
-\definecolor{colKeys}{rgb}{0,0,0}
-\definecolor{colIdentifier}{rgb}{0,0,0.9}
-\definecolor{colComments}{rgb}{.4,.4,.4}
-\definecolor{colString}{rgb}{0,0,0.6}
-\definecolor{deepblue}{rgb}{0,0,0.8}
-\definecolor{deepred}{rgb}{0.6,0,0}
-\definecolor{deepgreen}{rgb}{0,0.5,0}
-\definecolor{colBack}{rgb}{1,1,0.9}
-\definecolor{colKeys}{rgb}{108,48,130}%{0,0,0}
-\definecolor{colIdentifier}{rgb}{0,0,0.9}
-\definecolor{colComments}{rgb}{0,0.6,0}%{.4,.4,.4}
-\definecolor{colString}{rgb}{0.6,0,0}
-\definecolor{javared}{rgb}{0.6,0,0} % for strings
-\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
-\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
-\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
-% XML color
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-\definecolor{gray}{rgb}{0.4,0.4,0.4}
-\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
-\definecolor{lightblue}{rgb}{0.0,0.0,0.9}
-\definecolor{cyan}{rgb}{0.0,0.6,0.6}
-\definecolor{darkred}{rgb}{0.6,0.0,0.0}
-% Criando definição para linguagem Groovy
-\definecolor{groovyblue}{HTML}{0000A0}
-\definecolor{groovygreen}{HTML}{008000}
-\definecolor{darkgray}{rgb}{.4,.4,.4}
-% json
-\definecolor{eclipseStrings}{RGB}{42,0.0,255}
-\definecolor{eclipseKeywords}{RGB}{127,0,85}
-\colorlet{numb}{magenta!60!black}
-
-\lstset{ %
-  aboveskip=\bigskipamount,
-  backgroundcolor=\color{colBack}, 
-  basicstyle=\ttfamily\footnotesize,
-  keywordstyle=\color{deepblue},
-  stringstyle=\color{javared},
-  commentstyle=\color{javagreen},
-  morecomment=[s][\color{javadocblue}]{/**}{*/},
-  breakatwhitespace=false,
-  breaklines=true,        
-  captionpos=t,           
-  columns=flexible,
-  deletekeywords={...},  
-  escapechar={@*},       
-  extendedchars=true,    
-  linewidth=0.98\linewidth,
-  tab=$\to$,
-  float=tbph,
-  xleftmargin=10pt,
-  frame=single,	         
-  keepspaces=true,       
-  numbers=left,    
-  numbersep=5pt,   
-  numberstyle=\tiny,
-  rulecolor=\color{black}, 
-  showspaces=false,        
-  showstringspaces=false,  
-  showtabs=false,          
-  tabsize=2,
-  title=\lstname
-}
-
-\lstdefinelanguage{Groovy}[]{Java}{
-  keywordstyle=\color{groovyblue}\bfseries,
-  stringstyle=\color{groovygreen}\ttfamily,
-  keywords=[3]{each, findAll, groupBy, collect, inject, eachWithIndex},
-  morekeywords={def, as, in, use},
-  moredelim=[is][\textcolor{darkgray}]{\%\%}{\%\%},
-  moredelim=[il][\textcolor{darkgray}]{§§}
-}
-\lstdefinelanguage{XML}{
-  morestring=[s][\color{mauve}]{"}{"},
-  morestring=[s][\color{black}]{>}{<},
-  morecomment=[s]{<?}{?>},
-  morecomment=[s][\color{dkgreen}]{<!--}{-->},
-  stringstyle=\color{black},
-  identifierstyle=\color{lightblue},
-  keywordstyle=\color{red},
-  % list your attributes here
-  morekeywords={xmlns,xsi,noNamespaceSchemaLocation,type,id,x,y,source,target,version,tool,transRef,roleRef,objective,eventually}
-}
-\lstdefinelanguage{json}{
-    commentstyle=\color{eclipseStrings}, % style of comment
-    stringstyle=\color{eclipseKeywords}, % style of strings
-    string=[s]{"}{"},
-    comment=[l]{:\ "},
-    morecomment=[l]{:"},
-    literate=
-        *{0}{{{\color{numb}0}}}{1}
-         {1}{{{\color{numb}1}}}{1}
-         {2}{{{\color{numb}2}}}{1}
-         {3}{{{\color{numb}3}}}{1}
-         {4}{{{\color{numb}4}}}{1}
-         {5}{{{\color{numb}5}}}{1}
-         {6}{{{\color{numb}6}}}{1}
-         {7}{{{\color{numb}7}}}{1}
-         {8}{{{\color{numb}8}}}{1}
-         {9}{{{\color{numb}9}}}{1}
-}
-
-
-\lstdefinelanguage{docker}{
-  keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
-  keywordstyle=\color{blue}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{\#},
-  % stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-\lstdefinelanguage{docker-compose}{
-  keywords={image, environment, ports, container_name, ports, volumes, links},
-  keywordstyle=\color{blue}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{\#},
-  % stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-\lstdefinelanguage{docker-compose-2}{
-  keywords={version, volumes, services},
-  keywordstyle=\color{blue}\bfseries,
-  keywords=[2]{image, environment, ports, container_name, ports, links, build},
-  keywordstyle=[2]\color{olive}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{\#},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-% Permitindo caracteres acentuados dentro do ambiente lstlisting
-\lstset{%
-        inputencoding=utf8,
-        extendedchars=true,
-        literate=%
-        {é}{{\'{e}}}1
-        {è}{{\`{e}}}1
-        {ê}{{\^{e}}}1
-        {ë}{{\¨{e}}}1
-        {É}{{\'{E}}}1
-        {Ê}{{\^{E}}}1
-        {û}{{\^{u}}}1
-        {ù}{{\`{u}}}1
-        {â}{{\^{a}}}1
-        {à}{{\`{a}}}1
-        {á}{{\'{a}}}1
-        {ã}{{\~{a}}}1
-        {Á}{{\'{A}}}1
-        {Â}{{\^{A}}}1
-        {Ã}{{\~{A}}}1
-        {ç}{{\c{c}}}1
-        {Ç}{{\c{C}}}1
-        {õ}{{\~{o}}}1
-        {ó}{{\'{o}}}1
-        {ú}{{\'{u}}}1
-        {Ú}{{\'{U}}}1
-        {ô}{{\^{o}}}1
-        {Õ}{{\~{O}}}1
-        {Ó}{{\'{O}}}1
-        {Ô}{{\^{O}}}1
-        {î}{{\^{i}}}1
-        {Î}{{\^{I}}}1
-        {í}{{\'{i}}}1
-        {Í}{{\~{Í}}}1
-}

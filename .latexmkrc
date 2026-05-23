@@ -1,3 +1,25 @@
+# ----------------------------------------------------------------- #
+# Configurações para compilar usando o pdflatex ou LuaLaTeX
+# ----------------------------------------------------------------- #
+$pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
+$lualatex = 'lualatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
+
+# ----------------------------------------------------------------- #
+# Escolha o modo de compilação desejado (pdflatex ou LuaLaTeX)
+# ----------------------------------------------------------------- #
+# pdflatex é o modo padrão
+$pdf_mode = 1;
+#
+# Para usar o LuaLaTeX, descomente a linha abaixo
+# $pdf_mode = 4;
+# ----------------------------------------------------------------- #
+
+# ----------------------------------------------------------------- #
+# Define o diretório de saída dos arquivos gerados pela compilação
+# ----------------------------------------------------------------- #
+$out_dir = 'outlatexdir';
+
+
 # https://tex.stackexchange.com/questions/1226/how-to-make-latexmk-use-makeglossaries
 # push @file_not_found, '^Package .* No file `([^\\\']*)\\\'';
 # print("GLOBAL LATEXMK: Glossaries Module...\n");
@@ -19,7 +41,6 @@ sub run_makeglossaries {
     };
     popd; # ... and cd-ing back again
 }
-
 
 push @generated_exts, 'glo', 'gls', 'glg';
 push @generated_exts, 'acn', 'acr', 'alg';
